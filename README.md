@@ -1,65 +1,105 @@
-# candidly-web
+# Candidly web
 
-Candidly — « Chaque candidature compte. » — est une plateforme SaaS de gestion
-des candidatures et des relations professionnelles, un CRM personnel de carrière
-initialement destiné au marché ivoirien et disponible en français.
+**Chaque candidature compte.** Candidly est un CRM personnel de carrière pour
+organiser les candidatures et entretenir les relations professionnelles.
+Ce dépôt est indépendant de `candidly-api`. Lire [AGENTS.md](AGENTS.md) avant
+chaque intervention.
 
-## Rôle du frontend
+## État actuel — CAND-004
 
-Ce dépôt porte l’application web responsive et la future PWA : présentation,
-formulaires et interactions avec l’API REST. Les appels API seront centralisés ;
-aucun accès direct à la base de données ne sera autorisé.
+Next.js App Router, React, TypeScript strict, Tailwind CSS et les primitives
+shadcn/ui constituent le socle. L'accueil présente le produit ; `/dashboard`
+est une **démonstration publique temporaire**, avec des données entièrement
+fictives. Cette route devra être protégée lors du ticket d'authentification
+frontend. Aucune protection d'accès n'est simulée.
 
-## Stack prévue
+La recherche dans les exemples et les boutons d'états d'interface fonctionnent
+uniquement en mémoire. Aucun enregistrement, compte, abonnement ou endpoint
+métier n'est implémenté. Les liens pointent vers des routes ou sections existantes ;
+les futures fonctions sont marquées indisponibles.
 
-Next.js avec App Router, React, TypeScript, Tailwind CSS, shadcn/ui,
-React Hook Form, Zod et PWA.
+## Versions vérifiées
 
-Ces technologies seront installées dans les tickets suivants.
+| Outil                                  | Version installée |
+| -------------------------------------- | ----------------- |
+| Node.js utilisé pour les vérifications | 24.22.2           |
+| `next`                                 | 16.4.4            |
+| `react`                                | 19.3.1            |
+| `typescript`                           | 6.0.3             |
+| `tailwindcss`                          | 4.3.3             |
+| `shadcn`                               | 4.23.0            |
+| `vitest`                               | 5.0.5             |
+| `eslint`                               | 9.39.5            |
 
-## Architecture générale
+## Installation et lancement
 
-`candidly-web` et `candidly-api` sont deux dépôts Git indépendants.
-Le frontend consomme l'API REST du backend ; PostgreSQL est la source de vérité,
-Redis/BullMQ traite les tâches asynchrones et les documents utilisent un stockage
-objet privé compatible S3. Voir [l'architecture cible](docs/architecture/README.md).
+Prérequis : Node.js **24 LTS**, npm et Git. Aucun accès direct à PostgreSQL,
+Redis ou Docker n'est nécessaire pour cette démonstration.
 
-## Prérequis
+```bash
+nvm install
+nvm use
+npm ci
+cp -n .env.example .env.local
+npm run dev
+```
 
-- Git pour travailler avec le dépôt.
-- Node.js **24 LTS**, ligne commune aux deux dépôts, déclarée dans `.nvmrc`.
-- nvm, facultatif, pour sélectionner cette ligne avec `nvm install` et `nvm use`.
+L'application écoute par défaut sur `http://localhost:3000`. Ne pas écraser un
+fichier d'environnement existant. La variable publique requise par le client API :
 
-La ligne 24 reste en support LTS selon le [calendrier officiel Node.js](https://github.com/nodejs/Release).
-Elle satisfait les prérequis publiés de [Next.js](https://nextjs.org/docs/app/getting-started/installation)
-et [NestJS](https://docs.nestjs.com/first-steps). Les versions exactes des frameworks
-seront vérifiées lors de leur installation. `.nvmrc` suit la dernière corrective
-24.x disponible plutôt que de figer un correctif ancien.
+```dotenv
+NEXT_PUBLIC_API_URL=http://localhost:3001/api/v1
+```
 
-## État actuel — CAND-001
+Elle est intégrée au bundle à la compilation ; ne jamais y placer de secret.
+L'accueil et le dashboard ne font aucun appel au backend. Le client HTTP centralisé
+est prêt pour les prochains tickets : erreurs normalisées, délai de huit secondes,
+cache désactivé et aucun token ou cookie d'authentification.
 
-Seules les fondations Git, les configurations générales et la documentation sont
-préparées. Aucun framework, dépendance applicative, service de données ou Docker
-n'est installé. Aucun `package.json` ni script npm n'existe : il n'y a pas encore
-de commande de démarrage, lint, typecheck, test ou build.
+```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+npm run format:check
+npm run start
+```
 
-[.env.example](.env.example) décrit uniquement la configuration locale future.
-Les valeurs sont fictives et ne démarrent aucun service. Les fichiers `.env`
-réels sont ignorés et ne doivent jamais être commités.
+`npm run format` applique Prettier. `npm run start` nécessite le build préalable.
+Les versions exactes sont verrouillées dans `package.json` et `package-lock.json`.
 
-## Documentation
+## Architecture et design system
 
-- [AGENTS.md](AGENTS.md) : règles permanentes à lire avant toute modification.
-- [Architecture](docs/architecture/README.md) : séparation des applications et services cibles.
-- [ADR](docs/adr/README.md) : procédure de documentation des décisions architecturales.
-- [Développement](docs/development/README.md) : nommage, tickets, branches, commits, revue et validation.
+Voir [l'architecture](docs/architecture/README.md) pour l'arborescence,
+les responsabilités des composants et le client API.
+Le design utilise Inter servie localement, Navy `#172554`, Blue `#3B82F6`, Green
+`#10B981` et Background `#F8FAFC`. Les tons de statut sont adaptés pour le contraste
+sur fond clair. Les primitives Button, Card, Input, Badge, Separator et Skeleton
+sont installées localement selon les conventions manuelles shadcn/ui ; aucun
+catalogue complet n'est chargé. La navigation utilise des liens et des disclosures
+HTML natifs accessibles au clavier.
 
-## Conventions de développement
+## PWA et SEO
 
-Respecter TypeScript strict, les identifiants techniques anglais et les messages
-utilisateur français. Utiliser Conventional Commits, garder `main` stable et
-travailler sur `feature/CAND-XXX-description` ou `fix/CAND-XXX-description`.
-Chaque ticket nécessite une revue et un rapport de validation factuel.
-Ne jamais publier de secrets ni effectuer de push sans autorisation explicite.
+Le manifest `/manifest.webmanifest`, les métadonnées, les icônes 192/512 px,
+une icône maskable et l'icône Apple posent une **fondation PWA**.
+Aucun service worker ni cache applicatif n'est enregistré : aucune synchronisation
+ou disponibilité hors ligne n'est promise. L'installation réelle sur les appareils
+reste à vérifier ; l'application n'est pas annoncée comme entièrement installable.
 
-CAND-001 est soumis à validation ; CAND-002 ne doit pas commencer automatiquement.
+Le document est en français. Le dashboard déclare `noindex, nofollow` et est exclu
+de `robots.txt`. L'Open Graph initial est local (`http://localhost:3000`) ; son URL
+de base devra être adaptée lors d'un futur ticket de déploiement.
+
+## Documentation et conventions
+
+- [Développement](docs/development/README.md) : scripts, tests et environnement.
+- [Architecture](docs/architecture/README.md) : organisation et frontières.
+- [ADR](docs/adr/README.md) : procédure de décisions architecturales.
+
+Conventional Commits, `main` stable, branches `feature/CAND-XXX-description` ou
+`fix/CAND-XXX-description`. Aucun push ni déploiement sans autorisation explicite.
+Le [rapport CAND-004](docs/development/cand-004-validation.md) contient les vérifications,
+l’arborescence et la liste complète des fichiers.
+
+CAND-004 est soumis à validation ; ne pas commencer CAND-005 automatiquement.

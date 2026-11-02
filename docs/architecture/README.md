@@ -1,41 +1,80 @@
-# Architecture cible
+# Architecture frontend — CAND-004
 
-Candidly sépare deux dépôts Git autonomes : `candidly-web` pour le frontend
-web/PWA et `candidly-api` pour le backend. Chaque dépôt gère sa configuration,
-ses futures dépendances et sa documentation ; aucun monorepo ni submodule.
+Deux dépôts indépendants : `candidly-web` pour le web/PWA et `candidly-api` pour
+l'API REST NestJS sous `/api/v1`. Le frontend ne se connecte jamais à PostgreSQL.
+Le backend reste un monolithe modulaire ; PostgreSQL est la source de vérité,
+Redis/BullMQ gère les traitements asynchrones et les documents professionnels
+utiliseront un stockage objet privé compatible S3 avec URLs signées temporaires.
+Ces responsabilités backend ne sont pas implémentées ici.
+
+## Structure
 
 ```text
-Navigateur → candidly-web → API REST /api/v1 → candidly-api
-                                                ├── PostgreSQL
-                                                ├── Redis / BullMQ
-                                                └── Stockage objet privé compatible S3
+src/
+  app/
+    layout.tsx                    # langue, police locale, SEO et thème
+    (public)/layout.tsx, page.tsx  # accueil et navigation publique
+    (auth)/                       # emplacement réservé, aucune route fictive
+    (dashboard)/layout.tsx
+    (dashboard)/dashboard/page.tsx
+    manifest.ts, robots.ts, opengraph-image.tsx, not-found.tsx
+  components/
+    ui/                           # primitives shadcn/ui adaptées
+    layout/                       # marque, header, sidebar, navigation mobile
+    shared/                       # démonstrations et états d'interface
+  features/                       # réservé, aucun module métier anticipé
+  hooks/                          # réservé, aucune abstraction artificielle
+  lib/
+    api/                          # configuration et requêtes HTTP centralisées
+    utils/                        # fusion des classes Tailwind
+    validations/                  # réservé aux schémas des prochains tickets
+  types/                          # conventions de réponse API
+  styles/globals.css              # tokens Candidly et styles responsive
+public/icons/                     # assets PWA locaux
 ```
 
-Le frontend communique exclusivement avec l'API REST et ne se connecte jamais
-à PostgreSQL. Le backend est un monolithe modulaire : contrôleurs pour HTTP,
-DTO pour la validation, services pour la logique métier et repositories pour
-les accès complexes aux données. Swagger/OpenAPI documentera les endpoints.
-Les ressources privées seront systématiquement filtrées par propriétaire.
+Les pages et layouts sont des Server Components. Les composants clients sont
+limités à la recherche locale, au sélecteur d'états et aux primitives qui en ont
+besoin. Les exemples sont dans `components/shared/demo-data.ts`, jamais dans la
+couche API. Le dashboard est temporairement public, sans session ou guard simulé,
+et devra être protégé dans le ticket d'authentification frontend.
 
-PostgreSQL est la base principale et la source de vérité métier. Prisma gérera
-les accès et migrations lors du ticket correspondant. Redis et BullMQ serviront
-aux traitements asynchrones (rappels, notifications, emails transactionnels,
-imports), avec reprise sur erreur et idempotence lorsque nécessaire.
+## Client API
 
-Les documents seront conservés dans un stockage objet privé compatible S3.
-Le téléchargement nécessitera une autorisation et une URL signée temporaire.
-Les versions historiquement associées aux candidatures seront préservées.
-Le fournisseur de stockage reste à définir.
+`getApiBaseUrl` valide `NEXT_PUBLIC_API_URL`. `apiRequest<T>` utilise cette base,
+refuse les chemins externes et remontées de répertoire, impose `no-store` et
+`credentials: omit`, ne conserve aucun token et borne les requêtes à huit secondes.
+Les erreurs publiques `ApiError` exposent un statut HTTP éventuel et un code
+stable (`NETWORK_ERROR`, `HTTP_ERROR`, `INVALID_RESPONSE`, `INVALID_PATH`).
+Les détails bruts du réseau ou du serveur ne sont pas copiés dans les messages.
+Le type générique est une aide de compilation, pas une validation runtime du JSON ;
+les schémas de validation réels seront ajoutés avec les contrats des futurs endpoints.
+Aucune page actuelle n'appelle l'API.
 
-## Environnements prévus
+## Design system et accessibilité
 
-Séparer `development`, `staging` et `production`, avec des configurations et
-services distincts. Les exemples locaux utilisent le frontend sur le port 3000,
-l'API sur 3001, PostgreSQL sur 5432 et Redis sur 6379. Ces services ne sont pas
-installés ni démarrables à ce stade. Ne jamais utiliser de données de production
-pour les tests ni publier de secrets.
+`components.json` déclare le style `new-york`, Tailwind v4, les aliases et les
+variables CSS. Les primitives locales adaptées de shadcn/ui sont Button, Card,
+Input, Badge, Separator et Skeleton. Les éléments interactifs principaux font
+au moins 44 px ; les contrôles ont un focus visible et les formulaires ont un label.
+Les navigations mobiles utilisent `details/summary`, sans dépendance de menu lourde.
 
-CAND-001 prépare uniquement les conventions et la documentation. Les frameworks,
-services, modules métier, conteneurs et pipelines seront configurés par les
-prochains tickets. Les structures cibles de code figurent dans
-[AGENTS.md](../../AGENTS.md) et seront créées progressivement.
+Palette : Navy `#172554`, Blue `#3B82F6`, Green `#10B981`, Background `#F8FAFC`.
+Inter est intégrée via `@fontsource/inter`, sans requête Google Fonts au build.
+Les variantes de statuts emploient des textes plus sombres sur fonds pastel.
+Loading, empty, error et success sont démontrables explicitement et sans backend.
+
+## PWA et indexation
+
+Manifest typé Next.js, icônes PNG standard 192/512 px, maskable avec zone sûre,
+icône Apple et thème Navy. Aucun service worker, stockage de tokens, cache API
+privé ou synchronisation offline. La présence du manifest n'est pas une preuve
+d'installation sur appareil : cette validation reste distincte.
+Le dashboard déclare `noindex, nofollow` et `robots.txt` le désautorise.
+Les métadonnées Open Graph utilisent la base localhost pour ce ticket local.
+
+## Sources
+
+- [Installation Next.js](https://nextjs.org/docs/app/getting-started/installation)
+- [Installation manuelle shadcn/ui](https://ui.shadcn.com/docs/installation/manual)
+- [Tailwind pour Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs)
