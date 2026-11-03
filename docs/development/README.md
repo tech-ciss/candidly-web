@@ -119,7 +119,7 @@ critique. La démonstration ne sauvegarde aucune donnée.
 Le manifest et les icônes constituent la fondation PWA, sans service worker.
 Ne pas promettre de disponibilité hors ligne ou d'installation universelle avant
 vérification sur appareil. L'URL Open Graph localhost devra être adaptée avant
-un futur déploiement. Aucun pipeline ou déploiement n'est ajouté ici.
+un futur déploiement. CAND-004 n'ajoutait pas de pipeline ; CAND-005 ajoute la CI sans déploiement.
 
 ## Particularités des outils installés
 
@@ -135,3 +135,127 @@ les peer dependencies. Les commandes lint passent dans la configuration retenue.
 
 Voir le [rapport de validation CAND-004](cand-004-validation.md) pour les résultats
 réels, les versions et les limites de la fondation PWA.
+
+## Qualité et GitHub Actions — CAND-005
+
+Chaque dépôt possède son workflow indépendant `.github/workflows/ci.yml`.
+Il se déclenche sur les pull requests ciblant `main` et les push vers `main`,
+avec un runner GitHub hébergé `ubuntu-24.04`, Node.js 24 et cache npm indexé sur
+`package-lock.json`. Le cache contient les téléchargements npm, pas une copie
+persistante de `node_modules` : `npm ci` reste exécuté à chaque run.
+Les anciens runs d'une même branche sont annulés lorsqu'un nouveau run arrive.
+Un job est limité à 25 minutes.
+
+Les scripts communs conservent la même signification dans les deux dépôts :
+
+| Script         | Contrôle                             |
+| -------------- | ------------------------------------ |
+| `lint`         | ESLint, sans correction automatique  |
+| `typecheck`    | TypeScript strict, sans émission     |
+| `format:check` | Prettier, sans modifier les fichiers |
+| `test`         | tests unitaires/techniques du dépôt  |
+| `build`        | compilation de production            |
+
+Les frameworks de test existants sont conservés : Vitest pour le frontend et
+le runner Node.js pour le backend. Les configurations de lint, formatage et
+TypeScript ne sont pas remplacées. `npm ci` doit réussir avec le manifeste et
+le lockfile versionnés ; ne pas remplacer cette étape par `npm install` en CI.
+
+### Actions et permissions
+
+- [actions/checkout v7.0.1](https://github.com/actions/checkout/releases/tag/v7.0.1) : `3d3c42e5aac5ba805825da76410c181273ba90b1`.
+- [actions/setup-node v7.1.0](https://github.com/actions/setup-node/releases/tag/v7.1.0) : `949feb2413d6458794dcd2491c4babbbce0c15c1`.
+
+Ces releases stables officielles ont été vérifiées et sont épinglées par SHA de
+commit immuable. Les commentaires des workflows indiquent la version lisible.
+Lors d'une mise à jour, vérifier la release officielle, son runtime et son SHA ;
+ne pas remplacer une référence immuable par une branche mobile.
+Les actions utilisent Node 24 ; un éventuel runner auto-hébergé devra être
+compatible avec leurs prérequis avant toute adaptation du workflow.
+
+Permissions limitées à `contents: read`. Le checkout ne persiste pas ses
+identifiants dans la configuration Git. Aucun PAT ni secret GitHub ajouté,
+aucun événement `pull_request_target`, aucun accès à une infrastructure de production
+et aucune publication ou étape de déploiement.
+
+### Audit des dépendances
+
+Après les contrôles bloquants, `npm audit --omit=dev` examine les dépendances de
+production. **Seule cette étape est non bloquante**, avec `continue-on-error`.
+En cas d'échec, un avertissement et un message dans le résumé GitHub demandent
+une revue des résultats. Aucun lint, test, typecheck, installation ou build
+n'est rendu facultatif ; aucun `|| true` n'est utilisé.
+
+Une sortie non nulle peut indiquer des vulnérabilités ou une indisponibilité du
+registre : examiner le détail, ne pas conclure automatiquement à une faille
+exploitable. L'audit dépend des avis publiés, n'examine pas les dépendances de
+développement avec cette option et ne remplace ni revue de code ni tests de
+sécurité. Créer un ticket de remédiation selon le risque réel et vérifier les
+mises à jour compatibles. Ne jamais lancer `npm audit fix --force` ni effectuer
+une mise à jour majeure automatique.
+
+### Pull requests et échecs CI
+
+Créer une branche `feature/CAND-XXX-description` ou `fix/CAND-XXX-description`.
+La pull request décrit le problème, le périmètre, les fichiers importants, les
+commandes réellement exécutées et leurs résultats, les impacts de sécurité et
+les limites. Lier le ticket et demander une revue avant intégration à `main`.
+Pour un changement transversal, préparer une revue dans chacun des deux dépôts.
+Aucune protection GitHub n'est configurée automatiquement par ce ticket.
+
+En cas d'échec :
+
+1. Identifier la première étape en échec et lire son journal.
+2. Reproduire localement avec Node 24 et `npm ci`, puis la même commande et les
+   variables de test documentées. Ne pas utiliser de base partagée/production.
+3. Corriger la cause : aligner le lockfile si nécessaire sans mise à jour massive,
+   traiter le lint/typecheck, appliquer `npm run format` si nécessaire, puis
+   corriger les tests ou le build sans masquer leurs erreurs.
+4. Pour une intégration en échec, vérifier les healthchecks et la cohérence des
+   identifiants de la base de test, des ports et de l'environnement.
+5. Rejouer les contrôles concernés, documenter le résultat et soumettre la correction
+   à revue. Tout push reste soumis à une autorisation explicite.
+
+Les validations locales et la validation YAML ne prouvent pas qu'un run GitHub
+réussit. **Les workflows devront être réellement exécutés sur GitHub après
+publication autorisée des dépôts.** Aucun run GitHub n'est déclenché par CAND-005.
+
+### Ordre frontend et reproduction locale
+
+```bash
+npm ci
+npm run lint
+npm run typecheck
+npm run format:check
+npm run test
+npm run build
+npm audit --omit=dev
+```
+
+La CI fournit `NEXT_PUBLIC_API_URL=http://127.0.0.1:3001/api/v1` comme exemple
+public et désactive la télémétrie Next. Les pages actuelles ne nécessitent pas
+de backend. Aucune base, Redis ou authentification n'est utilisée dans ces tests.
+Le runtime local doit être Node 24 (`nvm install` puis `nvm use`).
+
+### Résultat de l'audit local — 3 novembre 2026
+
+`npm audit --omit=dev` s'est terminé avec le code 0 : aucune vulnérabilité connue
+remontée pour les dépendances de production verrouillées à cette date. Ce résultat
+est un instantané du registre, ne couvre pas les dépendances de développement et
+ne constitue pas une garantie d'absence de faille. Aucune correction automatique
+ni mise à jour majeure n'a été appliquée.
+
+### Réparation du lockfile frontend
+
+Le premier `npm ci` a révélé des métadonnées manquantes dans les dépendances WASM
+optionnelles groupées de Tailwind. Le lockfile a été reconstruit dans une copie
+isolée avec un correctif temporaire npm 11.21.1, sans modifier npm global.
+Les entrées groupées `@emnapi/core` et `@emnapi/runtime` ont été restaurées et
+les indicateurs de peer dependencies recalculés. Aucune version applicative ou
+transitive déjà verrouillée n'a été changée. Le workflow conserve `npm ci` normal,
+sans `--force` ni `--legacy-peer-deps`.
+
+La chaîne locale CAND-005 réussit sous Node.js 24.22.2 avec npm 11.6.2 habituel :
+`npm ci`, lint, typecheck, formatage, 12 tests techniques et build de production.
+La syntaxe et les expressions des workflows sont validées avec actionlint 1.7.12.
+Il s'agit de validations locales ; aucun run GitHub Actions n'a été exécuté.
