@@ -41,15 +41,10 @@ et devra être protégé dans le ticket d'authentification frontend.
 
 ## Client API
 
-`getApiBaseUrl` valide `NEXT_PUBLIC_API_URL`. `apiRequest<T>` utilise cette base,
-refuse les chemins externes et remontées de répertoire, impose `no-store` et
-`credentials: omit`, ne conserve aucun token et borne les requêtes à huit secondes.
-Les erreurs publiques `ApiError` exposent un statut HTTP éventuel et un code
-stable (`NETWORK_ERROR`, `HTTP_ERROR`, `INVALID_RESPONSE`, `INVALID_PATH`).
-Les détails bruts du réseau ou du serveur ne sont pas copiés dans les messages.
-Le type générique est une aide de compilation, pas une validation runtime du JSON ;
-les schémas de validation réels seront ajoutés avec les contrats des futurs endpoints.
-Aucune page actuelle n'appelle l'API.
+Le client utilise la base publique validée, les credentials vers l'API configurée,
+les erreurs contrôlées, le CSRF de session et un refresh partagé par instance.
+Aucune page actuelle n'appelle l'API. Voir le
+[contrat HTTP/sessions CAND-016A](http-sessions.md).
 
 ## Design system et accessibilité
 

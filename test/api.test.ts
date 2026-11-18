@@ -14,7 +14,7 @@ describe('client API', () => {
     expect(() => getApiBaseUrl('file:///tmp')).toThrow();
     expect(() => getApiBaseUrl('')).toThrow();
   });
-  it('retourne le JSON typé, préserve les Headers et refuse le cache/cookies', async () => {
+  it('retourne le JSON typé, préserve les Headers et refuse le cache et inclut les cookies API', async () => {
     vi.stubEnv('NEXT_PUBLIC_API_URL', 'http://localhost:3001/api/v1');
     const fetcher = vi
       .fn()
@@ -28,7 +28,7 @@ describe('client API', () => {
     const [url, options] = fetcher.mock.calls[0] as [string, RequestInit];
     expect(url).toBe('http://localhost:3001/api/v1/health');
     expect(options.cache).toBe('no-store');
-    expect(options.credentials).toBe('omit');
+    expect(options.credentials).toBe('include');
     expect(new Headers(options.headers).get('X-Test')).toBe('example');
   });
   it('gère une erreur réseau sans révéler les détails internes', async () => {

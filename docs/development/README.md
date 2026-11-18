@@ -259,3 +259,5 @@ La chaîne locale CAND-005 réussit sous Node.js 24.22.2 avec npm 11.6.2 habitue
 `npm ci`, lint, typecheck, formatage, 12 tests techniques et build de production.
 La syntaxe et les expressions des workflows sont validées avec actionlint 1.7.12.
 Il s'agit de validations locales ; aucun run GitHub Actions n'a été exécuté.
+
+- [Validation CAND-016A — compatibilité HTTP et sessions](cand-016a-validation.md).
