@@ -1,3 +1,4 @@
+import { AuthProvider } from '@/features/auth/provider';
 import type { Metadata, Viewport } from 'next';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
@@ -48,7 +49,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main-content">
           Aller au contenu principal
         </a>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

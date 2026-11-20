@@ -17,6 +17,13 @@ describe('fondation PWA et indexation', () => {
   });
   it('exclut le dashboard des moteurs', () => {
     expect(metadata.robots).toEqual({ index: false, follow: false });
-    expect(robots().rules).toMatchObject({ disallow: '/dashboard' });
+    expect(robots().rules).toMatchObject({
+      disallow: expect.arrayContaining([
+        '/dashboard',
+        '/account',
+        '/login',
+        '/reset-password',
+      ]),
+    });
   });
 });

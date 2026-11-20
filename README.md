@@ -5,18 +5,17 @@ organiser les candidatures et entretenir les relations professionnelles.
 Ce dépôt est indépendant de `candidly-api`. Lire [AGENTS.md](AGENTS.md) avant
 chaque intervention.
 
-## État actuel — CAND-004
+## État actuel — CAND-016B
 
 Next.js App Router, React, TypeScript strict, Tailwind CSS et les primitives
 shadcn/ui constituent le socle. L'accueil présente le produit ; `/dashboard`
-est une **démonstration publique temporaire**, avec des données entièrement
-fictives. Cette route devra être protégée lors du ticket d'authentification
-frontend. Aucune protection d'accès n'est simulée.
-
-La recherche dans les exemples et les boutons d'états d'interface fonctionnent
-uniquement en mémoire. Aucun enregistrement, compte, abonnement ou endpoint
-métier n'est implémenté. Les liens pointent vers des routes ou sections existantes ;
-les futures fonctions sont marquées indisponibles.
+reste une **démonstration publique**, avec des données entièrement fictives.
+L'authentification réelle (inscription, email, login, récupération et sessions)
+et le profil/préférences sont disponibles dans `/account`, espace privé séparé.
+Aucun module CRM frontend ni abonnement n'est connecté. Les jetons d'accès
+restent en mémoire, le refresh en cookie HttpOnly, sans proxy SSR inventé.
+Voir [les contrats et l'architecture](docs/architecture/authentication.md) et
+[le rapport CAND-016B](docs/development/cand-016b-validation.md).
 
 ## Versions vérifiées
 

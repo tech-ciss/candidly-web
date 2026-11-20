@@ -8,6 +8,8 @@ export function PublicHeader() {
       <div className="container header-inner">
         <Brand />
         <nav className="desktop-nav" aria-label="Navigation principale">
+          <Link href="/login">Connexion</Link>
+          <Link href="/account">Mon compte</Link>
           <Link href="/#approche">L’approche</Link>
           <Link href="/#apercu">Aperçu du produit</Link>
         </nav>
@@ -22,6 +24,8 @@ export function PublicHeader() {
             <Menu aria-hidden="true" />
           </summary>
           <nav aria-label="Navigation mobile">
+            <Link href="/login">Connexion</Link>
+            <Link href="/account">Mon compte</Link>
             <Link href="/#approche">L’approche</Link>
             <Link href="/#apercu">Aperçu du produit</Link>
             <Link href="/dashboard">Explorer la démo</Link>

@@ -261,3 +261,5 @@ La syntaxe et les expressions des workflows sont validées avec actionlint 1.7.1
 Il s'agit de validations locales ; aucun run GitHub Actions n'a été exécuté.
 
 - [Validation CAND-016A — compatibilité HTTP et sessions](cand-016a-validation.md).
+
+- [Validation CAND-016B](cand-016b-validation.md).

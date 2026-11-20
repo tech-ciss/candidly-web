@@ -1699,3 +1699,58 @@ button:disabled {
     transition: none !important;
   }
 }
+
+/* Authentification réelle, distincte de la démonstration CRM. */
+.auth-shell {
+  width: min(100% - 2rem, 38rem);
+  margin: 3rem auto;
+}
+.auth-card {
+  background: var(--card, white);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  margin: 1.5rem 0;
+}
+.auth-card h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.auth-card h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+.auth-card p,
+.auth-card dl {
+  margin: 0.75rem 0;
+}
+.auth-card dt {
+  font-weight: 600;
+}
+.auth-form {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.auth-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+.auth-error {
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+.auth-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.auth-links a,
+.auth-form a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

@@ -121,3 +121,6 @@ Aucune page login/register, donnée de dashboard, règle CRM, service CRM comple
 cache privé ou service worker modifié. La démonstration reste publique et fictive.
 Les conditions inter-onglets et la couche d'authentification UI restent à traiter
 avant CAND-016B. Voir le [rapport](../development/cand-016a-validation.md).
+
+La couche d'authentification CAND-016B utilise désormais ce contrat ; voir
+[l'architecture d'authentification](authentication.md).

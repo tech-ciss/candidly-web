@@ -36,8 +36,8 @@ public/icons/                     # assets PWA locaux
 Les pages et layouts sont des Server Components. Les composants clients sont
 limités à la recherche locale, au sélecteur d'états et aux primitives qui en ont
 besoin. Les exemples sont dans `components/shared/demo-data.ts`, jamais dans la
-couche API. Le dashboard est temporairement public, sans session ou guard simulé,
-et devra être protégé dans le ticket d'authentification frontend.
+couche API. Le dashboard reste une démo publique distincte ; le compte réel /account est
+protégé par le gestionnaire d'authentification CAND-016B, sans intégration CRM.
 
 ## Client API
 
@@ -73,3 +73,5 @@ Les métadonnées Open Graph utilisent la base localhost pour ce ticket local.
 - [Installation Next.js](https://nextjs.org/docs/app/getting-started/installation)
 - [Installation manuelle shadcn/ui](https://ui.shadcn.com/docs/installation/manual)
 - [Tailwind pour Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs)
+
+- [Authentification réelle — CAND-016B](authentication.md).
