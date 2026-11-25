@@ -5,7 +5,7 @@ organiser les candidatures et entretenir les relations professionnelles.
 Ce dépôt est indépendant de `candidly-api`. Lire [AGENTS.md](AGENTS.md) avant
 chaque intervention.
 
-## État actuel — CAND-016B
+## État actuel — CAND-016UI
 
 Next.js App Router, React, TypeScript strict, Tailwind CSS et les primitives
 shadcn/ui constituent le socle. L'accueil présente le produit ; `/dashboard`
@@ -53,7 +53,8 @@ NEXT_PUBLIC_API_URL=http://localhost:3001/api/v1
 Elle est intégrée au bundle à la compilation ; ne jamais y placer de secret.
 L'accueil et le dashboard ne font aucun appel au backend. Le client HTTP centralisé
 est prêt pour les prochains tickets : erreurs normalisées, délai de huit secondes,
-cache désactivé et aucun token ou cookie d'authentification.
+cache désactivé et authentification CAND-016B avec access token en mémoire
+et cookie de refresh HttpOnly.
 
 ```bash
 npm run lint
@@ -71,9 +72,9 @@ Les versions exactes sont verrouillées dans `package.json` et `package-lock.jso
 
 Voir [l'architecture](docs/architecture/README.md) pour l'arborescence,
 les responsabilités des composants et le client API.
-Le design utilise Inter servie localement, Navy `#172554`, Blue `#3B82F6`, Green
-`#10B981` et Background `#F8FAFC`. Les tons de statut sont adaptés pour le contraste
-sur fond clair. Les primitives Button, Card, Input, Badge, Separator et Skeleton
+Le design conserve Inter locale et Navy `#172554`, avec un fond grège
+`#F5F6F2`, un accent pétrole `#176B66` et des rôles de feedback distincts.
+Les tokens sont centralisés dans `src/styles/tokens.css`. Les primitives Button, Card, Input, Badge, Separator et Skeleton
 sont installées localement selon les conventions manuelles shadcn/ui ; aucun
 catalogue complet n'est chargé. La navigation utilise des liens et des disclosures
 HTML natifs accessibles au clavier.
@@ -101,4 +102,10 @@ Conventional Commits, `main` stable, branches `feature/CAND-XXX-description` ou
 Le [rapport CAND-004](docs/development/cand-004-validation.md) contient les vérifications,
 l’arborescence et la liste complète des fichiers.
 
-CAND-004 est soumis à validation ; ne pas commencer CAND-005 automatiquement.
+CAND-016UI est soumis à validation ; ne pas commencer CAND-016C automatiquement.
+
+## Identité visuelle — CAND-016UI
+
+La direction validée **Le fil professionnel** conserve Navy et Inter, avec un
+fond grège, une sélection pétrole et des couleurs de feedback distinctes.
+Voir le [design system](docs/design/design-system.md) et le [rapport de validation](docs/development/cand-016ui-validation.md).

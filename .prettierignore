@@ -4,3 +4,12 @@ coverage
 package-lock.json
 AGENTS.md
 next-env.d.ts
+
+# Installed skills are vendor instructions, not application source.
+.agents/
+# Generated Hallmark inventories and captures retain their original evidence format.
+.hallmark/before.json
+.hallmark/before.txt
+.hallmark/before/
+.hallmark/shots/
+.hallmark/compare.html

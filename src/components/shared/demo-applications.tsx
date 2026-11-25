@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Search, ArrowUpRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { StatusBadge } from '@/components/ui/status-badge';
 import { applications } from './demo-data';
 import { InterfaceState } from './interface-state';
 export function DemoApplications() {
@@ -52,7 +53,7 @@ export function DemoApplications() {
               <p>{a.role}</p>
               <small>{a.kind}</small>
             </div>
-            <Badge className={'status-badge tone-' + a.tone}>{a.status}</Badge>
+            <StatusBadge tone={a.tone}>{a.status}</StatusBadge>
             <span className="application-date">{a.date}</span>
             <ArrowUpRight size={17} className="row-arrow" aria-hidden="true" />
           </li>
@@ -60,7 +61,7 @@ export function DemoApplications() {
       </ul>
       {!visible.length && <InterfaceState status="empty" />}
       <div className="panel-footer">
-        <span>4 candidatures fictives · aucune donnée enregistrée</span>
+        <span>4 candidatures fictives, aucune donnée enregistrée</span>
         <span className="live-dot">Aperçu local</span>
       </div>
     </section>

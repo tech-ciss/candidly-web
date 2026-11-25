@@ -852,6 +852,76 @@ Les erreurs doivent être compréhensibles par l'utilisateur.
 
 ---
 
+## Politique de tests et de validation — Candidly
+
+### Objectif
+
+Privilégier la pertinence des tests, la rapidité d'exécution et la qualité des fonctionnalités plutôt que la quantité de tests réalisés.
+
+### Règles obligatoires
+
+1. Ne jamais exécuter plus de 10 cas de test automatisés par ticket sans autorisation explicite du propriétaire du projet.
+2. Cette limite concerne l'ensemble des tests exécutés : unitaires, intégration et end-to-end, nouveaux ou existants.
+3. Ne tester que les fonctionnalités directement modifiées et les dépendances présentant un risque réel de régression.
+4. Ne pas relancer systématiquement les suites complètes des tickets précédents.
+5. Réutiliser les tests existants lorsqu'ils couvrent déjà le comportement attendu.
+6. Ne pas créer de nouveaux tests redondants.
+7. Ne pas supprimer, désactiver ou affaiblir les tests existants pour respecter cette limite.
+8. Ne pas lancer plusieurs builds avec différents compilateurs sans justification technique.
+9. Ne pas multiplier les captures d'écran et les scénarios navigateur équivalents.
+10. Ne pas chercher à atteindre artificiellement le maximum de 10 tests. Un seul test pertinent peut être suffisant.
+
+### Sélection des tests
+
+Prioriser :
+
+- Le parcours nominal de la fonctionnalité modifiée.
+- Les règles métier critiques.
+- Les erreurs significatives.
+- Les risques de sécurité et d'isolation des données.
+- Les régressions directement liées aux modifications.
+
+Utiliser les options de filtrage de Vitest ou Jest pour sélectionner précisément les cas nécessaires.
+
+### Contrôles techniques
+
+Selon le périmètre du ticket :
+
+- Lint.
+- Typecheck.
+- Build avec le compilateur de référence du projet.
+- Git diff --check.
+- Audit des dépendances uniquement lorsque pertinent.
+
+Éviter les répétitions inutiles de ces commandes.
+
+### Validation globale
+
+Les suites complètes sont réservées aux jalons importants :
+
+- Finalisation d'une phase majeure.
+- Préparation d'une version bêta.
+- Préparation d'une release.
+- Mise en production.
+- Modification transversale à haut risque.
+
+Toute exécution dépassant 10 tests nécessite une autorisation préalable.
+
+Si la couverture ciblée est insuffisante pour garantir raisonnablement la sécurité d'une modification, signaler le risque et demander une autorisation avant d'élargir la validation.
+
+### Rapport final
+
+Présenter uniquement :
+
+- Les modifications réalisées.
+- Les tests sélectionnés et leur justification.
+- Les résultats réels.
+- Les contrôles techniques effectués.
+- Les risques résiduels et blocages.
+- Les fichiers modifiés.
+
+Ne pas présenter une validation ciblée comme une validation exhaustive du projet.
+
 # 15. TESTS ET VALIDATION
 
 ## 15.1 Principe

@@ -11,7 +11,11 @@ export function PrivateRoute({ children }: { children: React.ReactNode }) {
     if (status === 'unauthenticated') router.replace('/login');
   }, [status, router]);
   if (status === 'initializing' || status === 'refreshing')
-    return <p role="status">Vérification de votre session…</p>;
+    return (
+      <p role="status" className="loading-state">
+        Vérification de votre session…
+      </p>
+    );
   if (status === 'error')
     return (
       <div role="alert">
@@ -26,6 +30,10 @@ export function PrivateRoute({ children }: { children: React.ReactNode }) {
       </div>
     );
   if (status !== 'authenticated')
-    return <p role="status">Redirection vers la connexion…</p>;
+    return (
+      <p role="status" className="loading-state">
+        Redirection vers la connexion…
+      </p>
+    );
   return children;
 }

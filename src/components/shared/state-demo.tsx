@@ -7,7 +7,6 @@ export function StateDemo() {
   return (
     <section className="state-demo" aria-labelledby="states-title">
       <div>
-        <p className="eyebrow">LES DÉTAILS QUI COMPTENT</p>
         <h2 id="states-title">Un espace qui reste clair.</h2>
         <p>
           Les quatre états de l’interface, à explorer sans rien enregistrer.

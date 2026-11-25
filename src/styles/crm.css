@@ -1,0 +1,261 @@
+/* Hallmark · v2.0.0 · Candidly, Le fil professionnel · scope app · dossier relationnel · Inter, navy, pétrole, grège */
+/* Critique: listes de dossiers lisibles, surfaces ouvertes, navigation stable et formulaires réels. */
+/* App scope: densité fonctionnelle, sans hero ni métriques inventées. */
+.account-shell:has(.crm-account-card) {
+  width: min(100% - 2rem, 80rem);
+  max-width: 80rem;
+}
+.crm-account-card {
+  width: 100%;
+  max-width: none;
+}
+.crm {
+  min-width: 0;
+}
+.crm h1,
+.crm h2 {
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+.crm h1 {
+  font-size: var(--text-section);
+}
+.crm h2 {
+  font-size: var(--text-title);
+  margin-block: var(--space-xl) var(--space-lg);
+}
+.crm-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+  margin-block: var(--space-xl);
+}
+.crm-heading p {
+  color: var(--muted-foreground);
+  margin-top: var(--space-sm);
+}
+.crm-actions {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.crm-primary-link {
+  background: var(--accent-foreground);
+  color: var(--primary-foreground) !important;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-control);
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.crm-primary-link:hover {
+  background: var(--foreground);
+}
+.crm-filters {
+  background: var(--muted);
+  border-block: 1px solid var(--border);
+  padding: var(--space-lg);
+  display: flex;
+  align-items: end;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-block: var(--space-xl);
+}
+.crm-filters details {
+  width: 100%;
+}
+.crm summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: list-item;
+  padding-block: var(--space-md);
+}
+.crm-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+  margin-block: var(--space-lg);
+}
+.crm-filter-field,
+.crm-picker label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  font-size: var(--text-caption);
+}
+.crm :is(input:not([type='hidden']), select, textarea) {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  background: var(--card);
+  color: var(--foreground);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-control);
+  padding: var(--space-md);
+  font: inherit;
+}
+.crm :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+}
+.crm [aria-invalid='true'] {
+  border-color: var(--destructive);
+}
+.crm :disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+.crm-records {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.crm-records li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr) auto;
+  gap: var(--space-xl);
+  align-items: center;
+  padding-block: var(--space-xl);
+  border-bottom: 1px solid var(--border);
+}
+.crm-records li:first-child {
+  border-top: 1px solid var(--border);
+}
+.crm-records p {
+  color: var(--muted-foreground);
+  margin-top: var(--space-sm);
+}
+.crm-record-name {
+  font-size: var(--text-lead);
+  font-weight: 600;
+}
+.crm :is(a, p, dd) {
+  overflow-wrap: anywhere;
+}
+.crm-status {
+  font-size: var(--text-caption);
+  background: var(--muted);
+  color: var(--muted-foreground);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  width: fit-content;
+}
+.crm-status-active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.crm-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  padding-block: var(--space-xl);
+}
+.crm-empty {
+  padding-block: var(--space-2xl);
+}
+.crm-form {
+  max-width: 48rem;
+}
+.crm-form fieldset {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-lg);
+  border: 0;
+  padding: 0;
+}
+.crm-form small {
+  color: var(--muted-foreground);
+  font-size: var(--text-caption);
+}
+.crm .crm-picker {
+  display: block;
+  min-width: 0;
+  padding-block: var(--space-lg);
+  border-block: 1px solid var(--border);
+}
+.crm-picker legend {
+  font-size: var(--text-body);
+  font-weight: 600;
+}
+.crm-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xl);
+  padding-block: var(--space-xl);
+}
+.crm-fields dt {
+  color: var(--muted-foreground);
+  font-size: var(--text-caption);
+}
+.crm-fields dd {
+  margin: var(--space-sm) 0 0;
+  white-space: pre-wrap;
+}
+.crm-management {
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-2xl);
+  padding-block: var(--space-lg);
+}
+.crm-management > p {
+  margin-bottom: var(--space-lg);
+}
+.crm-confirm-panel {
+  padding: var(--space-lg);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-control);
+  margin-block: var(--space-md);
+  max-width: 36rem;
+}
+.crm-confirm-panel p {
+  margin-bottom: var(--space-lg);
+}
+.account-navigation a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .crm-heading {
+    gap: var(--space-lg);
+  }
+  .crm-records li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+  .crm-filter-grid,
+  .crm-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .crm-filters {
+    padding: var(--space-md);
+  }
+  .crm-filters > * {
+    width: 100%;
+  }
+  .crm-account-card {
+    padding: var(--space-lg);
+  }
+}
+.crm h1,
+.crm h2 {
+  text-wrap: balance;
+}
+.account-navigation a:active {
+  color: var(--accent-foreground);
+}
+.crm-primary-link:active {
+  filter: brightness(0.95);
+}
+.crm [data-slot='button'] {
+  max-width: 100%;
+  white-space: normal;
+  height: auto;
+  min-height: 44px;
+}

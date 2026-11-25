@@ -8,14 +8,14 @@ import { DashboardMobileNav } from '@/components/layout/dashboard-nav';
 import { Button } from '@/components/ui/button';
 
 describe('pages de démonstration', () => {
-  it('présente Candidly et un appel à la démonstration existante', () => {
+  it('présente Candidly et un appel à la création de compte gratuit', () => {
     render(<HomePage />);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       'Chaque candidature',
     );
     expect(
-      screen.getByRole('link', { name: /Découvrir mon futur espace/ }),
-    ).toHaveAttribute('href', '/dashboard');
+      screen.getByRole('link', { name: /Créer mon espace gratuitement/ }),
+    ).toHaveAttribute('href', '/register');
     expect(screen.getByText(/sans inscription/)).toBeInTheDocument();
   });
   it('affiche un dashboard explicitement fictif et filtre localement', () => {

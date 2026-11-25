@@ -21,16 +21,14 @@ export default function DashboardLayout({
               Mon espace <span>/</span> Vue d’ensemble
             </span>
           </div>
-          <Badge variant="outline">
-            <span className="blue-dot" /> DÉMONSTRATION
-          </Badge>
+          <Badge variant="outline">Démonstration</Badge>
         </header>
         <main id="main-content" className="dashboard-content">
           {children}
         </main>
         <footer className="dashboard-footer">
-          Candidly · Chaque candidature compte.
-          <span>Démo publique · aucune donnée enregistrée</span>
+          Candidly, Chaque candidature compte.
+          <span>Démo publique, aucune donnée enregistrée</span>
         </footer>
       </div>
     </div>

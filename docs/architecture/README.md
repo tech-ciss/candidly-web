@@ -54,7 +54,8 @@ Input, Badge, Separator et Skeleton. Les éléments interactifs principaux font
 au moins 44 px ; les contrôles ont un focus visible et les formulaires ont un label.
 Les navigations mobiles utilisent `details/summary`, sans dépendance de menu lourde.
 
-Palette : Navy `#172554`, Blue `#3B82F6`, Green `#10B981`, Background `#F8FAFC`.
+Palette CAND-016UI : Navy `#172554`, fond grège `#F5F6F2`, pétrole `#176B66`,
+sélection douce `#E4F0EC`, texte secondaire `#55636A` et feedback sémantique.
 Inter est intégrée via `@fontsource/inter`, sans requête Google Fonts au build.
 Les variantes de statuts emploient des textes plus sombres sur fonds pastel.
 Loading, empty, error et success sont démontrables explicitement et sans backend.
@@ -75,3 +76,11 @@ Les métadonnées Open Graph utilisent la base localhost pour ce ticket local.
 - [Tailwind pour Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs)
 
 - [Authentification réelle — CAND-016B](authentication.md).
+
+## Identité visuelle — CAND-016UI
+
+La direction validée **Le fil professionnel** conserve Navy et Inter, avec un
+fond grège, une sélection pétrole et des couleurs de feedback distinctes.
+Voir le [design system](../design/design-system.md) et le [rapport de validation](../development/cand-016ui-validation.md).
+
+- [Intégration frontend CRM](crm-frontend.md)

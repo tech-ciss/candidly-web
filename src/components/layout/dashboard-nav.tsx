@@ -54,16 +54,15 @@ export function DashboardSidebar() {
         <span className="workspace-icon">C</span>
         <div>
           <strong>Espace de démonstration</strong>
-          <small>Personnel · données fictives</small>
+          <small>Personnel, données fictives</small>
         </div>
       </div>
-      <p className="sidebar-label">MON ESPACE</p>
+      <p className="sidebar-label">Mon espace</p>
       <nav aria-label="Navigation du dashboard">
         <Navigation />
       </nav>
       <div className="sidebar-bottom">
         <div className="sidebar-note">
-          <span className="blue-dot" />
           <strong>Un premier aperçu.</strong>
           <p>
             Cet espace est public et fictif. Les fonctionnalités arrivent

@@ -1,0 +1,1088 @@
+/* Hallmark · v2.0.0 · genre: modern-minimal · theme: Le fil professionnel (by request) · shape: app screen · signature: dossier relationnel · scope: app */
+/* Critique: navigation stable, contenu dense et lisible, identité du dossier avant ses informations ; aucune métrique inventée. */
+/* Waive: sidebar with four destinations is explicitly required by LOT 01; no future destinations are shown. */
+.app-shell {
+  min-height: 100dvh;
+  color: var(--foreground);
+  background: var(--background);
+}
+.app-sidebar {
+  display: none;
+}
+.app-workspace {
+  min-width: 0;
+}
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  min-height: 64px;
+  padding: var(--space-sm) var(--space-lg);
+  padding-top: max(var(--space-sm), env(safe-area-inset-top));
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+.app-header .brand {
+  font-size: var(--text-title);
+}
+.app-breadcrumbs {
+  display: none;
+}
+.app-avatar {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: var(--radius-control);
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 600;
+}
+.app-avatar-large {
+  width: 64px;
+  height: 64px;
+  font-size: var(--text-section);
+}
+.app-user-menu {
+  position: relative;
+}
+.app-user-menu summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  padding: var(--space-xs);
+  border-radius: var(--radius-control);
+}
+.app-user-menu summary::-webkit-details-marker {
+  display: none;
+}
+.app-user-name {
+  display: none;
+  font-size: var(--text-caption);
+}
+.app-user-popover {
+  position: absolute;
+  top: calc(100% + var(--space-sm));
+  right: 0;
+  z-index: 60;
+  width: 17rem;
+  max-width: calc(100vi - 2rem);
+  padding: var(--space-sm);
+  background: var(--popover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-floating);
+}
+.app-user-popover p {
+  padding: var(--space-sm);
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+.app-user-popover a,
+.app-user-popover button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-md);
+}
+.app-main {
+  width: 100%;
+  max-width: 86rem;
+  margin-inline: auto;
+  min-width: 0;
+  padding: var(--space-xl) var(--space-lg)
+    calc(100px + env(safe-area-inset-bottom));
+  scroll-padding-block: 6rem 12rem;
+}
+.app-main :is(h1, h2, h3) {
+  min-width: 0;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+  color: var(--foreground);
+  font-weight: 600;
+}
+.app-main h1 {
+  font-size: var(--text-section);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.app-main h2 {
+  font-size: var(--text-title);
+  line-height: 1.4;
+}
+.app-main p {
+  line-height: 1.6;
+}
+.app-shell :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+}
+.app-shell a:active {
+  color: var(--accent-foreground);
+}
+.app-shell :is(button, summary):active {
+  filter: brightness(0.95);
+}
+.app-mobile-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--space-xs);
+  padding: var(--space-sm) max(var(--space-sm), env(safe-area-inset-left));
+  padding-bottom: max(var(--space-sm), env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  background: var(--card);
+}
+.app-mobile-navigation a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 56px;
+  min-width: 0;
+  font-size: var(--text-caption);
+  color: var(--muted-foreground);
+  border-radius: var(--radius-control);
+  border-top: 3px solid transparent;
+}
+.app-mobile-navigation a[aria-current='page'] {
+  color: var(--accent-foreground);
+  background: var(--accent);
+  border-top-color: var(--accent-foreground);
+  font-weight: 600;
+}
+.app-shell[data-keyboard='open'] .app-mobile-navigation {
+  display: none;
+}
+.app-main .crm-heading {
+  margin: 0 0 var(--space-xl);
+  gap: var(--space-lg);
+}
+.app-main .crm-heading h1 {
+  margin: 0;
+}
+.app-main .crm-heading p {
+  margin: var(--space-sm) 0 0;
+  color: var(--muted-foreground);
+  max-width: 55ch;
+}
+.app-main .crm-actions {
+  gap: var(--space-md);
+}
+.app-main .crm-primary-link,
+.app-main .crm-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-control);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  text-decoration: none;
+  max-width: 100%;
+}
+.app-main .crm-primary-link {
+  background: var(--accent-foreground);
+  color: var(--primary-foreground);
+}
+.app-main .crm-primary-link:hover {
+  background: var(--foreground);
+}
+.app-main .crm-secondary-link {
+  background: var(--card);
+  color: var(--foreground);
+  border: 1px solid var(--input);
+}
+.app-main .crm-secondary-link:hover {
+  background: var(--muted);
+}
+.app-main .crm :is(input:not([type='hidden']), select, textarea) {
+  font-size: var(--text-body);
+  line-height: 1.5;
+  scroll-margin-block: 6rem 12rem;
+}
+.app-main .crm input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+.crm-muted {
+  color: var(--muted-foreground);
+}
+.crm-back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: var(--space-lg);
+  color: var(--muted-foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  font-size: var(--text-caption);
+}
+.crm-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-block: var(--space-xl);
+}
+.crm-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-control);
+  padding-left: var(--space-md);
+}
+.crm-search svg {
+  flex-shrink: 0;
+  color: var(--muted-foreground);
+}
+.app-main .crm .crm-search input {
+  border: 0;
+  background: transparent;
+  padding-inline: 0;
+}
+.crm-search:focus-within {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+.app-main .crm-search input:focus-visible {
+  outline: none;
+}
+.crm-toolbar > button {
+  flex-shrink: 0;
+}
+.crm-filter-count {
+  display: inline-flex;
+  justify-content: center;
+  min-width: 1.4rem;
+  padding-inline: var(--space-xs);
+  border-radius: var(--radius-control);
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.crm-dialog {
+  width: min(40rem, calc(100% - 2rem));
+  max-height: calc(var(--app-visible-height, 100dvh) - 2rem);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  color: var(--foreground);
+  background: var(--popover);
+  box-shadow: var(--shadow-floating);
+}
+.crm-dialog::backdrop {
+  background: color-mix(in srgb, var(--foreground) 35%, transparent);
+}
+.crm-dialog-content {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(var(--app-visible-height, 100dvh) - 2rem);
+  min-height: 0;
+}
+.crm-dialog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-shrink: 0;
+  padding: var(--space-lg) var(--space-xl);
+  border-bottom: 1px solid var(--border);
+}
+.app-main .crm-dialog-heading h2 {
+  font-size: var(--text-title);
+  margin: 0;
+}
+.crm-dialog-heading button {
+  flex-shrink: 0;
+  width: 44px;
+}
+.crm-filter-form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.crm-filter-form > .crm-filter-grid {
+  overflow-y: auto;
+  padding: var(--space-xl);
+  margin: 0;
+}
+.crm-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  padding: var(--space-lg) var(--space-xl);
+  padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  background: var(--popover);
+}
+.crm-filter-form .crm-company-picker {
+  grid-column: 1 / -1;
+}
+.app-main .crm-picker-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--space-md);
+  min-height: 48px;
+  padding: var(--space-md);
+  white-space: normal;
+  text-align: left;
+  border: 1px solid var(--input);
+}
+.crm-picker-trigger span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.crm-company-picker {
+  display: grid;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+.crm-company-picker > label {
+  font-size: var(--text-caption);
+  font-weight: 500;
+}
+.crm-company-picker small {
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+.crm-company-picker [role='alert'] {
+  color: var(--destructive);
+  font-size: var(--text-caption);
+}
+.crm-picker-options {
+  overflow-y: auto;
+  padding: var(--space-xl);
+}
+.crm-picker-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+.crm-picker-search > input {
+  min-width: 0;
+}
+.crm-picker-status {
+  display: grid;
+  gap: var(--space-sm);
+  margin-block: var(--space-lg);
+  font-size: var(--text-caption);
+}
+.crm-company-options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.crm-company-options li + li {
+  border-top: 1px solid var(--border);
+}
+.crm-company-options button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  min-height: 60px;
+  text-align: left;
+  padding: var(--space-md);
+  border-radius: var(--radius-control);
+}
+.crm-company-options button:hover,
+.crm-company-options button[aria-pressed='true'] {
+  background: var(--accent);
+}
+.crm-company-options button small {
+  display: block;
+  color: var(--muted-foreground);
+  margin-top: var(--space-xs);
+}
+.crm-company-options strong {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.crm-table-wrap {
+  display: none;
+}
+.crm-mobile-records {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+}
+.crm-mobile-records > li {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 44px;
+  gap: var(--space-md);
+  align-items: start;
+  padding: var(--space-lg);
+}
+.crm-mobile-records > li + li {
+  border-top: 1px solid var(--border);
+}
+.crm-record-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 40px;
+  color: var(--accent-foreground);
+  background: var(--accent);
+  border-radius: var(--radius-control);
+  flex-shrink: 0;
+}
+.app-main .crm-record-name {
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--foreground);
+  display: inline-block;
+  padding-block: var(--space-xs);
+  text-underline-offset: 0.2em;
+}
+.app-main .crm-record-name:hover {
+  text-decoration: underline;
+}
+.crm-record-body {
+  min-width: 0;
+}
+.crm-record-body p {
+  font-size: var(--text-caption);
+  margin: var(--space-xs) 0;
+  color: var(--muted-foreground);
+}
+.crm-record-body .crm-status {
+  display: inline-block;
+  margin-top: var(--space-sm);
+}
+.crm-record-company {
+  display: inline-block;
+  font-size: var(--text-caption);
+  color: var(--accent-foreground);
+  text-decoration: underline;
+  margin-block: var(--space-xs);
+}
+.crm-row-menu {
+  position: relative;
+}
+.app-main .crm-row-menu summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  list-style: none;
+  cursor: pointer;
+  border-radius: var(--radius-control);
+}
+.crm-row-menu summary::-webkit-details-marker {
+  display: none;
+}
+.crm-row-menu summary:hover,
+.crm-row-menu[open] summary {
+  background: var(--muted);
+}
+.crm-row-menu > div {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 25;
+  width: 12rem;
+  max-width: 70vi;
+  padding: var(--space-sm);
+  background: var(--popover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-floating);
+}
+.crm-row-menu a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-caption);
+}
+.crm-row-menu a:hover {
+  background: var(--muted);
+}
+.app-main .crm-pagination {
+  padding-block: var(--space-lg);
+  font-size: var(--text-caption);
+}
+.crm-pagination a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-control);
+  background: var(--card);
+}
+.app-main .crm-empty {
+  text-align: left;
+  padding: var(--space-2xl) var(--space-xl);
+  border: 1px dashed var(--input);
+  border-radius: var(--radius-panel);
+  background: var(--card);
+}
+.app-main .crm-empty h2 {
+  margin: 0 0 var(--space-sm);
+}
+.crm-empty p {
+  color: var(--muted-foreground);
+}
+.crm-empty a {
+  display: inline-block;
+  color: var(--accent-foreground);
+  text-decoration: underline;
+  padding-block: var(--space-md);
+}
+.app-main .crm-form {
+  max-width: 64rem;
+  gap: var(--space-lg);
+}
+.app-main .crm-form > fieldset {
+  gap: var(--space-lg);
+}
+.crm-form-section {
+  padding: 0;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius-panel);
+  min-width: 0;
+}
+.app-main .crm-form-section > h2,
+.app-main .crm-form-section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--text-body);
+  font-weight: 600;
+  margin: 0;
+  padding: var(--space-lg);
+}
+.app-main details.crm-form-section > summary {
+  display: list-item;
+  list-style-position: inside;
+}
+.crm-optional {
+  float: right;
+  font-size: var(--text-caption);
+  color: var(--muted-foreground);
+  font-weight: 400;
+}
+.crm-form-section-body {
+  padding: 0 var(--space-lg) var(--space-xl);
+}
+.crm-input-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+.crm-input-cell {
+  min-width: 0;
+}
+.crm-input-cell .form-field {
+  margin: 0;
+}
+.app-main .crm-input-cell label {
+  font-size: var(--text-caption);
+}
+.crm-input-wide {
+  grid-column: 1 / -1;
+}
+.crm-form-section .crm-company-picker {
+  margin-bottom: var(--space-lg);
+}
+.app-main .crm-form-actions {
+  position: sticky;
+  z-index: 15;
+  bottom: calc(88px + env(safe-area-inset-bottom));
+  padding: var(--space-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius-control);
+}
+.app-shell[data-keyboard='open'] .crm-form-actions {
+  bottom: var(--keyboard-inset, 0px);
+}
+.crm-form-actions a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-md);
+}
+.crm-dossier-identity {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: start;
+  margin-block: var(--space-lg) var(--space-xl);
+}
+.crm-dossier-identity > div {
+  min-width: 0;
+}
+.app-main .crm-dossier-identity .crm-heading {
+  margin-bottom: var(--space-sm);
+}
+.crm-dossier-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: var(--radius-panel);
+}
+.crm-quick-actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xl);
+}
+.crm-detail-grid,
+.crm-profile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+.crm-detail-section {
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid var(--border);
+  min-width: 0;
+}
+.app-main .crm-detail-section h2 {
+  margin: 0 0 var(--space-lg);
+}
+.app-main .crm-detail-section .crm-fields {
+  padding: 0;
+  margin: 0;
+  gap: var(--space-lg);
+}
+.app-main .crm-fields {
+  margin: 0;
+  gap: var(--space-lg);
+}
+.app-main .crm-fields dd {
+  margin: var(--space-xs) 0 0;
+}
+.crm-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.app-main .crm-section-heading h2 {
+  margin: 0;
+}
+.crm-section-heading a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  font-size: var(--text-caption);
+  color: var(--accent-foreground);
+}
+.crm-prose {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.crm-admin {
+  padding-block: var(--space-lg);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--text-caption);
+}
+.app-main .crm-admin summary {
+  font-weight: 500;
+}
+.app-main .crm-management {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg) 0;
+}
+.app-main .crm-management h2 {
+  font-size: var(--text-body);
+  margin-block: 0 var(--space-sm);
+}
+.crm-management > p {
+  color: var(--muted-foreground);
+  font-size: var(--text-caption);
+  max-width: 65ch;
+}
+.crm-confirm.is-destructive > button {
+  color: var(--destructive);
+  border-color: var(--destructive);
+}
+.crm-confirm-panel {
+  background: var(--card);
+}
+.crm-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+  margin-block: var(--space-2xl);
+}
+.crm-overview-item {
+  padding: var(--space-xl);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  min-width: 0;
+}
+.crm-overview-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  color: var(--accent-foreground);
+}
+.app-main .crm-overview-title h2 {
+  margin: 0;
+  font-size: var(--text-body);
+}
+.crm-overview-total {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin-block: var(--space-xl);
+  color: var(--muted-foreground);
+}
+.crm-overview-total strong {
+  color: var(--foreground);
+  font-weight: 600;
+  font-size: var(--text-section);
+  font-variant-numeric: tabular-nums;
+}
+.crm-overview-item > a {
+  font-size: var(--text-caption);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.crm-overview-guide {
+  display: flex;
+  align-items: start;
+  gap: var(--space-lg);
+  border-top: 1px solid var(--border);
+  padding-block: var(--space-xl);
+}
+.app-main .crm-overview-guide h2 {
+  font-size: var(--text-lead);
+  margin: 0 0 var(--space-sm);
+}
+.crm-overview-guide p {
+  color: var(--muted-foreground);
+  max-width: 58ch;
+  margin-bottom: var(--space-sm);
+}
+.crm-overview-guide a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.crm-profile-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding-block: var(--space-lg) var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+.app-main .crm-profile-identity h2 {
+  margin: 0;
+}
+.crm-profile-identity p {
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+.crm-profile .auth-form {
+  gap: var(--space-md);
+}
+.crm-profile .auth-form button {
+  justify-self: start;
+}
+.crm-profile-grid .crm-fields {
+  grid-template-columns: minmax(0, 1fr);
+}
+.crm-profile-grid .crm-detail-section p {
+  margin-bottom: var(--space-lg);
+}
+@media (min-width: 48rem) {
+  .app-sidebar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 88px;
+    flex-direction: column;
+    gap: var(--space-3xl);
+    padding: var(--space-xl) var(--space-sm);
+    border-right: 1px solid var(--border);
+    background: var(--card);
+  }
+  .app-sidebar .brand {
+    font-size: var(--text-body);
+    padding-inline: var(--space-xs);
+  }
+  .app-sidebar nav {
+    display: grid;
+    gap: var(--space-sm);
+  }
+  .app-sidebar nav a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    min-height: 48px;
+    border-inline-start: 3px solid transparent;
+    border-radius: var(--radius-control);
+    color: var(--muted-foreground);
+  }
+  .app-sidebar nav a:hover {
+    background: var(--muted);
+  }
+  .app-sidebar nav a[aria-current='page'] {
+    color: var(--accent-foreground);
+    background: var(--accent);
+    border-inline-start-color: var(--accent-foreground);
+    font-weight: 600;
+  }
+  .app-sidebar nav a span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .app-sidebar-note {
+    display: none;
+  }
+  .app-workspace {
+    margin-left: 88px;
+  }
+  .app-mobile-navigation,
+  .app-mobile-brand {
+    display: none;
+  }
+  .app-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-size: var(--text-caption);
+    color: var(--muted-foreground);
+    flex-wrap: wrap;
+  }
+  .app-header {
+    padding: var(--space-md) var(--space-xl);
+  }
+  .app-main {
+    padding: var(--space-2xl) var(--space-xl);
+  }
+  .crm-input-grid,
+  .crm-overview-grid,
+  .crm-detail-grid,
+  .crm-profile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .app-main .crm-form-actions {
+    bottom: var(--space-lg);
+  }
+}
+@media (min-width: 64rem) {
+  .app-sidebar {
+    width: 224px;
+    padding: var(--space-2xl) var(--space-lg);
+  }
+  .app-sidebar .brand {
+    font-size: 1.5rem;
+    padding-inline: var(--space-sm);
+  }
+  .app-sidebar nav a {
+    justify-content: flex-start;
+    padding-inline: var(--space-lg);
+    font-size: var(--text-caption);
+  }
+  .app-sidebar nav a span {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+  }
+  .app-sidebar-note {
+    display: block;
+    margin-top: auto;
+    color: var(--muted-foreground);
+    font-size: var(--text-caption);
+    padding-inline: var(--space-sm);
+  }
+  .app-workspace {
+    margin-left: 224px;
+  }
+  .app-main {
+    padding: var(--space-2xl) var(--space-2xl);
+  }
+  .app-header {
+    padding-inline: var(--space-2xl);
+  }
+  .app-user-name {
+    display: inline;
+  }
+  .crm-mobile-records {
+    display: none;
+  }
+  .crm-table-wrap {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-panel);
+    padding-bottom: var(--space-sm);
+  }
+  .crm-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: var(--text-caption);
+  }
+  .crm-table th {
+    text-align: left;
+    font-weight: 500;
+  }
+  .crm-table thead th {
+    padding: var(--space-md) var(--space-lg);
+    color: var(--muted-foreground);
+    background: var(--muted);
+  }
+  .crm-table :is(td, th[scope='row']) {
+    padding: var(--space-lg);
+    overflow-wrap: anywhere;
+    vertical-align: middle;
+    border-top: 1px solid var(--border);
+  }
+  .crm-table th:first-child {
+    width: 27%;
+  }
+  .crm-table th:last-child {
+    width: 64px;
+  }
+  .crm-table .crm-record-name {
+    font-size: var(--text-caption);
+  }
+  .crm-table td:last-child {
+    padding: var(--space-sm);
+  }
+}
+@media (max-width: 47.99rem) {
+  .crm-toolbar {
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+  .crm-toolbar .crm-search {
+    flex-basis: calc(100% - 9rem);
+  }
+  .app-main .crm-toolbar > button {
+    padding-inline: var(--space-md);
+  }
+  .crm-dialog {
+    position: fixed;
+    inset: auto 0 var(--keyboard-inset, 0px);
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+    max-height: calc(var(--app-visible-height, 100dvh) - 1rem);
+  }
+  .crm-dialog-content {
+    max-height: calc(var(--app-visible-height, 100dvh) - 1rem);
+  }
+  .crm-dialog-heading {
+    padding: var(--space-md) var(--space-lg);
+  }
+  .crm-filter-form > .crm-filter-grid {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-lg);
+  }
+  .crm-dialog-actions {
+    padding-inline: var(--space-lg);
+  }
+  .crm-picker-options {
+    padding: var(--space-lg);
+  }
+  .crm-dossier-identity {
+    gap: var(--space-md);
+  }
+  .crm-dossier-symbol,
+  .crm-dossier-identity .app-avatar-large {
+    width: 48px;
+    height: 48px;
+    font-size: var(--text-title);
+  }
+  .crm-dossier-identity h1 {
+    font-size: var(--text-title);
+  }
+  .crm-mobile-records > li {
+    grid-template-columns: minmax(0, 1fr) 44px;
+    padding: var(--space-md);
+  }
+  .crm-mobile-records .crm-record-symbol {
+    display: none;
+  }
+  .crm-form-actions > button {
+    flex: 1;
+  }
+  .crm-overview-total {
+    flex-wrap: wrap;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shell *,
+  .app-shell *::before,
+  .app-shell *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.app-shell button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

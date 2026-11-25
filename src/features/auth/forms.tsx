@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 import { ApiError } from '@/lib/api/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { FormField } from '@/components/ui/form-field';
+import { Feedback } from '@/components/ui/feedback';
 import { useAuth } from './provider';
 import { validateForm, consumeActionToken, type FormKind } from './validation';
 import type { Registration } from './types';
@@ -146,6 +148,7 @@ export function AuthForm({ kind }: { kind: FormKind }) {
       noValidate
       className="auth-form"
       aria-label={titles[kind]}
+      aria-busy={pending}
     >
       {kind === 'login' && sessionMessage && (
         <div role="alert">
@@ -159,8 +162,12 @@ export function AuthForm({ kind }: { kind: FormKind }) {
         </div>
       )}
       {fields.map((name) => (
-        <div key={name}>
-          <label htmlFor={kind + '-' + name}>{labels[name]}</label>
+        <FormField
+          key={name}
+          id={kind + '-' + name}
+          label={labels[name]!}
+          error={errors[name]}
+        >
           <Input
             id={kind + '-' + name}
             name={name}
@@ -205,17 +212,14 @@ export function AuthForm({ kind }: { kind: FormKind }) {
             }
             disabled={pending}
           />
-          {errors[name] && (
-            <p id={kind + '-' + name + '-error'} className="auth-error">
-              {errors[name]}
-            </p>
-          )}
-        </div>
+        </FormField>
       ))}
       {kind === 'reset' && !token && !success && (
         <p>Ouvrez le lien reçu par email pour définir votre mot de passe.</p>
       )}
-      {message && <p role={success ? 'status' : 'alert'}>{message}</p>}
+      {message && (
+        <Feedback tone={success ? 'success' : 'error'}>{message}</Feedback>
+      )}
       <Button
         type="submit"
         disabled={
@@ -276,12 +280,16 @@ export function VerifyEmail() {
         </p>
       )}
       <Button
+        type="button"
+        aria-busy={pending}
         disabled={!token || !session || pending || done}
         onClick={() => void verify()}
       >
         {pending ? 'Vérification…' : 'Vérifier mon adresse email'}
       </Button>
-      {message && <p role={done ? 'status' : 'alert'}>{message}</p>}
+      {message && (
+        <Feedback tone={done ? 'success' : 'error'}>{message}</Feedback>
+      )}
       {!done && <AuthForm kind="resend" />}
       <Link href="/login">Se connecter</Link>
     </>

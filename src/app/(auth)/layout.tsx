@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { ActiveLink } from '@/components/layout/active-link';
 import type { Metadata } from 'next';
 import { Brand } from '@/components/layout/brand';
 export const metadata: Metadata = {
@@ -15,11 +15,11 @@ export default function AuthLayout({
       <Brand />
       <section className="auth-card">{children}</section>
       <nav className="auth-links" aria-label="Authentification">
-        <Link href="/login">Connexion</Link>
-        <Link href="/register">Inscription</Link>
-        <Link href="/forgot-password">Mot de passe oublié</Link>
-        <Link href="/verify-email">Vérifier mon email</Link>
-        <Link href="/">Accueil</Link>
+        <ActiveLink href="/login">Connexion</ActiveLink>
+        <ActiveLink href="/register">Inscription</ActiveLink>
+        <ActiveLink href="/forgot-password">Mot de passe oublié</ActiveLink>
+        <ActiveLink href="/verify-email">Vérifier mon email</ActiveLink>
+        <ActiveLink href="/">Accueil</ActiveLink>
       </nav>
     </main>
   );

@@ -29,7 +29,6 @@ export default function DashboardPage() {
       </div>
       <div className="dashboard-title">
         <div>
-          <p className="eyebrow">CHAQUE PAS COMPTE</p>
           <h1>
             Faites place à la suite<span className="blue-text">.</span>
           </h1>
@@ -111,7 +110,7 @@ export default function DashboardPage() {
               <Badge className="tone-blue">Entretien fictif</Badge>
               <h3>Préparer la rencontre</h3>
               <p>Atelier Horizon</p>
-              <small>Exemple · 10 h 00</small>
+              <small>Exemple, 10 h 00</small>
             </div>
           </div>
           <div className="action-item">
@@ -122,7 +121,7 @@ export default function DashboardPage() {
               <Badge variant="secondary">Relance fictive</Badge>
               <h3>Reprendre contact</h3>
               <p>Nova Studio</p>
-              <small>Exemple · À votre rythme</small>
+              <small>Exemple, À votre rythme</small>
             </div>
           </div>
           <div className="action-reminder">

@@ -18,7 +18,7 @@ export function InterfaceState({
       >
         <Skeleton className="h-5 w-2/3" />
         <Skeleton className="h-4 w-1/2" />
-        <p>Chargement — aperçu visuel uniquement.</p>
+        <p>Chargement, aperçu visuel uniquement.</p>
       </div>
     );
   const content = {

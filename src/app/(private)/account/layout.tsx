@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { AccountShell } from '@/features/crm/account-shell';
 import { PrivateRoute } from '@/features/auth/private-route';
 export const metadata: Metadata = {
   title: 'Mon compte',
@@ -12,11 +12,8 @@ export default function AccountLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main id="main-content" className="auth-shell">
-      <Link href="/">Candidly</Link>
-      <div className="auth-card">
-        <PrivateRoute>{children}</PrivateRoute>
-      </div>
-    </main>
+    <PrivateRoute>
+      <AccountShell>{children}</AccountShell>
+    </PrivateRoute>
   );
 }

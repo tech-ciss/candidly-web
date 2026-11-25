@@ -14,7 +14,7 @@ export default function PublicLayout({
           <Brand />
           <p>Chaque candidature compte.</p>
           <span>
-            © {new Date().getFullYear()} Candidly · Démonstration technique
+            © {new Date().getFullYear()} Candidly, Démonstration technique
           </span>
         </div>
       </footer>

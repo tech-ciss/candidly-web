@@ -263,3 +263,17 @@ Il s'agit de validations locales ; aucun run GitHub Actions n'a été exécuté.
 - [Validation CAND-016A — compatibilité HTTP et sessions](cand-016a-validation.md).
 
 - [Validation CAND-016B](cand-016b-validation.md).
+
+## Identité visuelle — CAND-016UI
+
+La direction validée **Le fil professionnel** conserve Navy et Inter, avec un
+fond grège, une sélection pétrole et des couleurs de feedback distinctes.
+Voir le [design system](../design/design-system.md) et le [rapport de validation](../development/cand-016ui-validation.md).
+
+- [Finitions de la landing — CAND-016UI-F](cand-016ui-f-validation.md).
+
+- [Validation CAND-016C](cand-016c-validation.md)
+
+- [Validation CAND-016SEC](cand-016sec-validation.md)
+
+- [Validation CAND-016UI-CRM](cand-016ui-crm-validation.md)

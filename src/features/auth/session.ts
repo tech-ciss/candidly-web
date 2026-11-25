@@ -133,7 +133,13 @@ export class SessionManager {
     this.clear('unauthenticated');
   }
   async request<T>(
-    path: '/users/me' | '/users/me/preferences',
+    path:
+      | '/users/me'
+      | '/users/me/preferences'
+      | '/companies'
+      | `/companies/${string}`
+      | '/contacts'
+      | `/contacts/${string}`,
     options: ApiRequestOptions = {},
   ): Promise<T> {
     const generation = this.generation;
